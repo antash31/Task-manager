@@ -8,6 +8,14 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        "custom-black": "#2a2929",
+        "sub-black": "#3e3d3d",
+        "sub-blue": "#6d7885",
+      },
+      fontFamily: {
+        "jersey-20": ['"Jersey 20"', "sans-serif"],
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
