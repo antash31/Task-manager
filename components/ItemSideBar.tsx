@@ -7,21 +7,37 @@ import RepeatRoundedIcon from "@mui/icons-material/RepeatRounded";
 import AttachFileRoundedIcon from "@mui/icons-material/AttachFileRounded";
 import DueDatePopup from "./DueDatePopup";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/state/store";
+import { addToImportant } from "@/state/TaskSlice/TaskSlice";
 
-const ItemSideBar = () => {
+const ItemSideBar = ({ infoForRightSideBar }: { infoForRightSideBar: any }) => {
   const [file, setFile] = useState([]);
   const [openMenu, setOpenMenu] = useState(false);
   function handleUpload(e: any) {
     setFile(Array.from(e.target.files));
     console.log(file);
   }
+  const list = useSelector((state: RootState) => state.tasks.list);
+  const dispatch = useDispatch();
+
+  function handleAddToImportant() {
+    console.log(infoForRightSideBar.id);
+    return dispatch(addToImportant(infoForRightSideBar.id));
+  }
+
   return (
     <div className="relative h-screen w-[300px] bg-custom-black font-jersey-20 px-3">
       <div className="mt-5">
         <div className="flex items-center w-[100%] my-1 px-1">
           <input type="checkbox" name="" id="" />
-          <label className="text-white ml-2 text-xl">TITLE</label>
-          <StarBorderRoundedIcon className="text-white ml-auto" />
+          <p className="text-white ml-2 text-xl">
+            {infoForRightSideBar.taskname}
+          </p>
+          <StarBorderRoundedIcon
+            className="text-white ml-auto"
+            onClick={handleAddToImportant}
+          />
         </div>
         <div className="itemsidebarHelperClass">
           <AddRoundedIcon className="text-sub-blue mx-2" />
@@ -61,7 +77,7 @@ const ItemSideBar = () => {
         >
           <RepeatRoundedIcon className="text-sub-blue mx-2" />
           <p className="text-sub-blue">Repeat</p>
-          {!openMenu && <DueDatePopup />}
+          {openMenu && <DueDatePopup />}
         </div>
 
         <div className="itemsidebarHelperClass">

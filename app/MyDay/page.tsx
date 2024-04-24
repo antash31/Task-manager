@@ -4,8 +4,11 @@ import { RootState } from "@/state/store";
 import { Provider, useDispatch, useSelector } from "react-redux";
 
 const MyDay = () => {
-  const list = useSelector((state: RootState) => state.tasks.list);
+  const Mainlist = useSelector((state: RootState) => state.tasks.list);
 
+  const list = Mainlist.filter((item, index) => {
+    return item.listType.indexOf("My Day") != -1;
+  });
   return (
     <>
       <Main list={list} heading={"My Day"} />

@@ -20,10 +20,16 @@ export const TaskSlice = createSlice({
       state.list = state.list.filter((item) => {
         return item.id != action.payload.id;
       });
-      console.log(state.list,"State-list from redux");
+      console.log(state.list, "State-list from redux");
     },
     editTask: (state, action) => {},
-    addToImportant: (state, action) => {},
+    addToImportant: (state, action) => {
+      for (let i = 0; i < state.list.length; i++) {
+        if (state.list[i].id == action.payload) {
+          state.list[i].listType.push("Important");
+        }
+      }
+    },
     removeFromImportant: (state, action) => {},
     addDueDate: (state, action) => {},
     removeDueDate: (state, action) => {},

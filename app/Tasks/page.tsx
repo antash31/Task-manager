@@ -1,3 +1,4 @@
+'use client';
 import { Main } from "@/components";
 import { RootState } from "@/state/store";
 import { useState, createContext } from "react";

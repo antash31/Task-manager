@@ -3,15 +3,35 @@ import { RootState } from "@/state/store";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from "react-redux";
 
-const TaskItemBar = ({ title, id }: { title: string; id: string }) => {
+const TaskItemBar = ({
+  title,
+  id,
+  setIsRightSideBarOpen,
+  IsRightSideBarOpen,
+  sendInfoToRightSideBar,
+}: {
+  title: string;
+  id: string;
+  setIsRightSideBarOpen: any;
+  IsRightSideBarOpen: boolean;
+  sendInfoToRightSideBar: any;
+}) => {
   const list = useSelector((state: RootState) => state.tasks.list);
   const dispatch = useDispatch();
-  function handleDelete(idc:string) {
+  function handleDelete(idc: string) {
     console.log(idc);
-    return dispatch(removeTask({id:idc}));
+    return dispatch(removeTask({ id: idc }));
+  }
+
+  function handleRightSideBar() {
+    sendInfoToRightSideBar(id,title);
+    setIsRightSideBarOpen(true);
   }
   return (
-    <div className="flex h-[50px] w-[100%] bg-custom-black rounded-md text-white  mt-2">
+    <div
+      className="flex h-[50px] w-[100%] bg-custom-black rounded-md text-white  mt-2"
+      onClick={handleRightSideBar}
+    >
       <div className="flex items-center w-[100%] justify-start border-1 p-0">
         <input
           type="checkbox"
@@ -20,9 +40,7 @@ const TaskItemBar = ({ title, id }: { title: string; id: string }) => {
           className="rounded-full border-3 w-5 h-5 ml-1"
         />
         <div className="flex flex-col w-[100%]">
-          <label htmlFor="Tasks" className="mx-8 font-jersey-20 text-lg">
-            {title}
-          </label>
+          <p className="mx-8 font-jersey-20 text-lg">{title}</p>
           <div className="flex text-xs p-0 justify-start mx-8">
             <p className="mr-3">Hello</p>
             <p className="mr-3">Steps</p>
@@ -31,7 +49,7 @@ const TaskItemBar = ({ title, id }: { title: string; id: string }) => {
             <p className="mr-3">Notes</p>
           </div>
         </div>
-        <DeleteIcon onClick={()=>handleDelete(id)} />
+        <DeleteIcon onClick={() => handleDelete(id)} />
       </div>
     </div>
   );
